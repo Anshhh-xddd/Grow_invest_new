@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 const navigation = [
   { name: 'Insights', href: '#insights' },
@@ -99,37 +98,37 @@ const DesktopView = () => {
                 aria-hidden={!servicesOpen}
               >
                 {serviceLinks.map((service) => (
-                  <Link
+                  <a
                     key={service.name}
-                    to={service.href}
+                    href={service.href}
                     className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-slate-600 transition hover:bg-brand-50 hover:text-brand-600"
                     onClick={() => setServicesOpen(false)}
                   >
                     {service.name}
                     <span aria-hidden="true">→</span>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
             {navigation.map((item) => (
-              <Link key={item.name} to={item.href} className="transition-colors hover:text-brand-600">
+              <a key={item.name} href={item.href} className="transition-colors hover:text-brand-600">
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
           <div className="flex items-center gap-4 text-sm">
-            <Link
-              to="#contact"
+            <a
+              href="#contact"
               className="rounded-full border border-slate-200 px-5 py-2 font-medium text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
             >
               Log in
-            </Link>
-            <Link
-              to="#contact"
+            </a>
+            <a
+              href="#contact"
               className="rounded-full bg-brand-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600"
             >
               Start investing
-            </Link>
+            </a>
           </div>
         </header>
 
@@ -147,16 +146,16 @@ const DesktopView = () => {
                 advisors who translate market complexity into confident decisions.
               </p>
               <div className="flex items-center gap-6 pt-2 text-sm font-medium">
-                <Link
-                  to="#contact"
+                <a
+                  href="#contact"
                   className="rounded-full bg-midnight px-7 py-3 text-white shadow-lg shadow-midnight/30 transition hover:bg-slate-900"
                 >
                   Book a consultation
-                </Link>
-                <Link to="#insights" className="inline-flex items-center gap-2 text-slate-600 transition hover:text-brand-600">
+                </a>
+                <a href="#insights" className="inline-flex items-center gap-2 text-slate-600 transition hover:text-brand-600">
                   Explore insights
                   <span aria-hidden="true">→</span>
-                </Link>
+                </a>
               </div>
               <dl className="grid grid-cols-3 gap-6 pt-6 text-left">
                 {stats.map((item) => (
@@ -214,12 +213,12 @@ const DesktopView = () => {
                   <article key={item.title} className="rounded-2xl border border-slate-100 bg-white/80 p-6 shadow-sm">
                     <h3 className="text-2xl font-semibold text-midnight">{item.title}</h3>
                     <p className="mt-3 text-base text-slate-600">{item.description}</p>
-                    <Link
-                      to="#contact"
+                    <a
+                      href="#contact"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
                     >
                       Request full report <span aria-hidden="true">→</span>
-                    </Link>
+                    </a>
                   </article>
                 ))}
               </div>
@@ -258,9 +257,9 @@ const DesktopView = () => {
         <footer className="mt-auto flex items-center justify-between border-t border-slate-100 pt-8 text-sm text-slate-500">
           <p>© {new Date().getFullYear()} Grow Invest. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link to="#top" className="transition hover:text-brand-600">
+            <a href="#top" className="transition hover:text-brand-600">
               Back to top
-            </Link>
+            </a>
             <a href="mailto:hello@growinvest.com" className="transition hover:text-brand-600">
               hello@growinvest.com
             </a>
