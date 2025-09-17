@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const navigation = [
-  { name: 'Solutions', href: '#solutions' },
   { name: 'Insights', href: '#insights' },
   { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
+]
+
+const serviceLinks = [
+  { name: 'Portfolio Strategy', href: '#solutions' },
+  { name: 'Impact Research', href: '#insights' },
+  { name: 'Advisor Access', href: '#contact' },
 ]
 
 const features = [
@@ -42,6 +47,8 @@ const stats = [
 ]
 
 const DesktopView = () => {
+  const [servicesOpen, setServicesOpen] = useState(false)
+
   return (
     <div className="relative isolate overflow-hidden bg-white text-slate-900">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-radial-grid" aria-hidden="true" />
@@ -54,25 +61,74 @@ const DesktopView = () => {
             Grow Invest
           </div>
           <nav className="flex items-center gap-10 text-sm font-medium text-slate-600">
+            <div
+              className="relative"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+              onFocus={() => setServicesOpen(true)}
+              onBlur={(event) => {
+                if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
+                  setServicesOpen(false)
+                }
+              }}
+            >
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand-600"
+                aria-haspopup="true"
+                aria-expanded={servicesOpen}
+                onClick={() => setServicesOpen((prev) => !prev)}
+              >
+                Services
+                <svg
+                  className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : 'rotate-0'}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.127l3.71-3.896a.75.75 0 1 1 1.08 1.04l-4.24 4.46a.75.75 0 0 1-1.08 0l-4.24-4.46a.75.75 0 0 1 .02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <div
+                className={`absolute left-0 top-full z-20 mt-3 w-48 rounded-2xl border border-slate-100 bg-white p-2 text-sm shadow-lg shadow-slate-200/60 transition-opacity ${servicesOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+                aria-hidden={!servicesOpen}
+              >
+                {serviceLinks.map((service) => (
+                  <a
+                    key={service.name}
+                    href={service.href}
+                    className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-slate-600 transition hover:bg-brand-50 hover:text-brand-600"
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    {service.name}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                ))}
+              </div>
+            </div>
             {navigation.map((item) => (
-              <Link key={item.name} to={item.href} className="transition-colors hover:text-brand-600">
+              <a key={item.name} href={item.href} className="transition-colors hover:text-brand-600">
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
           <div className="flex items-center gap-4 text-sm">
-            <Link
-              to="#contact"
+            <a
+              href="#contact"
               className="rounded-full border border-slate-200 px-5 py-2 font-medium text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
             >
               Log in
-            </Link>
-            <Link
-              to="#contact"
+            </a>
+            <a
+              href="#contact"
               className="rounded-full bg-brand-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600"
             >
               Start investing
-            </Link>
+            </a>
           </div>
         </header>
 
@@ -90,16 +146,16 @@ const DesktopView = () => {
                 advisors who translate market complexity into confident decisions.
               </p>
               <div className="flex items-center gap-6 pt-2 text-sm font-medium">
-                <Link
-                  to="#contact"
+                <a
+                  href="#contact"
                   className="rounded-full bg-midnight px-7 py-3 text-white shadow-lg shadow-midnight/30 transition hover:bg-slate-900"
                 >
                   Book a consultation
-                </Link>
-                <Link to="#insights" className="inline-flex items-center gap-2 text-slate-600 transition hover:text-brand-600">
+                </a>
+                <a href="#insights" className="inline-flex items-center gap-2 text-slate-600 transition hover:text-brand-600">
                   Explore insights
                   <span aria-hidden="true">→</span>
-                </Link>
+                </a>
               </div>
               <dl className="grid grid-cols-3 gap-6 pt-6 text-left">
                 {stats.map((item) => (
@@ -157,12 +213,12 @@ const DesktopView = () => {
                   <article key={item.title} className="rounded-2xl border border-slate-100 bg-white/80 p-6 shadow-sm">
                     <h3 className="text-2xl font-semibold text-midnight">{item.title}</h3>
                     <p className="mt-3 text-base text-slate-600">{item.description}</p>
-                    <Link
-                      to="#contact"
+                    <a
+                      href="#contact"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
                     >
                       Request full report <span aria-hidden="true">→</span>
-                    </Link>
+                    </a>
                   </article>
                 ))}
               </div>
@@ -201,9 +257,9 @@ const DesktopView = () => {
         <footer className="mt-auto flex items-center justify-between border-t border-slate-100 pt-8 text-sm text-slate-500">
           <p>© {new Date().getFullYear()} Grow Invest. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link to="#top" className="transition hover:text-brand-600">
+            <a href="#top" className="transition hover:text-brand-600">
               Back to top
-            </Link>
+            </a>
             <a href="mailto:hello@growinvest.com" className="transition hover:text-brand-600">
               hello@growinvest.com
             </a>
