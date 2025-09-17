@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+
+import Navbar from './Navbar'
 
 const navigation = [
   { name: 'Insights', href: '#insights' },
@@ -48,90 +49,17 @@ const stats = [
 ]
 
 const DesktopView = () => {
-  const [servicesOpen, setServicesOpen] = useState(false)
-
   return (
     <div className="relative isolate overflow-hidden bg-white text-slate-900">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-radial-grid" aria-hidden="true" />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-12 pb-16">
-        <header className="flex items-center justify-between py-12" id="top">
-          <div className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-forest">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-500/10 text-brand-600">
-              GI
-            </span>
-            Grow Invest
-          </div>
-          <nav className="flex items-center gap-10 text-sm font-medium text-slate-600">
-            <div
-              className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-              onFocus={() => setServicesOpen(true)}
-              onBlur={(event) => {
-                if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
-                  setServicesOpen(false)
-                }
-              }}
-            >
-              <button
-                type="button"
-                className="inline-flex items-center gap-1 transition-colors hover:text-brand-600"
-                aria-haspopup="true"
-                aria-expanded={servicesOpen}
-                onClick={() => setServicesOpen((prev) => !prev)}
-              >
-                Services
-                <svg
-                  className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : 'rotate-0'}`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.127l3.71-3.896a.75.75 0 1 1 1.08 1.04l-4.24 4.46a.75.75 0 0 1-1.08 0l-4.24-4.46a.75.75 0 0 1 .02-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-              <div
-                className={`absolute left-0 top-full z-20 mt-3 w-48 rounded-2xl border border-slate-100 bg-white p-2 text-sm shadow-lg shadow-slate-200/60 transition-opacity ${servicesOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-                aria-hidden={!servicesOpen}
-              >
-                {serviceLinks.map((service) => (
-                  <Link
-                    key={service.name}
-                    to={service.href}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-slate-600 transition hover:bg-brand-50 hover:text-brand-600"
-                    onClick={() => setServicesOpen(false)}
-                  >
-                    {service.name}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            {navigation.map((item) => (
-              <Link key={item.name} to={item.href} className="transition-colors hover:text-brand-600">
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              to="#contact"
-              className="rounded-full border border-slate-200 px-5 py-2 font-medium text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-            >
-              Log in
-            </Link>
-            <Link
-              to="#contact"
-              className="rounded-full bg-brand-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600"
-            >
-              Start investing
-            </Link>
-          </div>
-        </header>
+        <Navbar
+          id="top"
+          navigation={navigation}
+          serviceLinks={serviceLinks}
+          secondaryCta={{ label: 'Log in', to: '#contact' }}
+          primaryCta={{ label: 'Start investing', to: '#contact' }}
+        />
 
         <main className="flex flex-1 flex-col gap-24 pb-16">
           <section className="grid grid-cols-[1.1fr,0.9fr] items-center gap-16" id="solutions">
