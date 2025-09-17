@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const services = [
   {
     title: 'Smart automated portfolios',
@@ -29,12 +31,12 @@ const MobileView = () => {
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-500/10 text-sm text-brand-600">GI</span>
             Grow Invest
           </span>
-          <a
-            href="#mobile-contact"
+          <Link
+            to="#mobile-contact"
             className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600"
           >
             Get started
-          </a>
+          </Link>
         </header>
 
         <main className="mt-10 space-y-10">
